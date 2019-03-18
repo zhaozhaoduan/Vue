@@ -1,0 +1,40 @@
+<div id="app"></div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+//全局组件
+Vue.component('Vbtn', {//插槽
+	template: '<button><slot>按钮</slot></button>'
+})
+
+//局部组件使用：先声明，再挂载，最后使用
+var App = {
+	data(){
+		return{
+
+		}
+	},
+	methods:{
+		clickHanlder(){
+			console.log(this)
+		}
+	},
+	template:"<h3><Vbtn>OK</Vbtn><Vbtn>error</Vbtn><Vbtn>OK</Vbtn>我是入口组件</h3>"
+}
+
+var vm = new Vue({
+	el: '#app',
+	data (){
+		return{
+
+		}
+	},
+	components:{
+		App
+	},
+	template: '<App></App>'
+})
+console.log(vm)
+</script>
+</body>
+</html>

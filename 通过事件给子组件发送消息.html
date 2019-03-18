@@ -1,0 +1,60 @@
+<div id="app"></div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+//全局组件
+Vue.component('Parent', {
+	data(){
+		return{
+			msg: '父组件数据'
+		}
+	},
+	template: '<div>父组件<Child :childData= "msg" @childHandler="clickHanlder" /></div>',
+	methods:{
+		clickHanlder(val){
+			console.log(val)
+		}
+	}
+})
+
+Vue.component('Child', {
+	template: '<div>子组件<input type="text" v-model="childData" @input="changeValue(childData)"  /></div>',
+	props: ['childData'],
+	methods:{
+		changeValue(val){
+			this.$emit('childHandler', val)//第一个参数是事件名，第二个是消息
+		}
+	}
+
+})
+//局部组件使用：先声明，再挂载，最后使用
+var App = {
+	data(){
+		return{
+
+		}
+	},
+	methods:{
+		clickHanlder(){
+			console.log(this)
+		}
+	},
+	template:"<h3><Parent/></h3>"
+}
+
+var vm = new Vue({
+	el: '#app',
+	data (){
+		return{
+
+		}
+	},
+	components:{
+		App
+	},
+	template: '<App></App>'
+})
+console.log(vm)
+</script>
+</body>
+</html>

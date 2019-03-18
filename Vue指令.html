@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+new Vue({
+	el: '#app',
+	data: function(){
+		return{
+			msg: '指令系统',
+			msg1: '指令系统1',
+			isRed: true,
+			menuList: [
+				{id: 1, name: '土豆丝', price: 13},
+				{id: 2, name: '包菜', price: 10},
+				{id: 3, name: '木耳', price: 7}
+			],
+			person: {
+				name: 'sb',
+				age: '40',
+				love: 'av'
+			}
+		}
+	},
+	methods: {
+		toggle(){
+			this.isRed = !this.isRed
+		}
+	},
+	template: '<div><h5 v-text="msg"></h5><h5 v-html="msg1"></h5><div @click="toggle" v-bind:class="{active: isRed}" :aaa="msg">msd</div><ul><li v-for="item in menuList"><h5 v-text="item.name"></h5></li></ul><ul><li v-for="(key,value,index) in person"><h5></h5>{{key}}=={{value}}=={{index}}</li></ul></div>'
+})
+</script>
+</body>
+</html>

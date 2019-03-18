@@ -1,0 +1,37 @@
+<div id="app"></div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+var App = {
+	template: '<div class="app"><input type="text" v-show="isShow" ref="input" /></div>',
+	mounted(){
+		this.isShow = "true"
+		//$nextTick()是在dom更新循环结束之后执行的回调函数，在修改数据之后使用此方法，在回调中获取到更新之后的dom
+		this.$nextTick(()=>{
+			console.log(this.$refs.input)
+			this.$refs.input.focus()
+		})
+	},
+	data(){
+		return{
+			isShow: false
+		}
+	}
+}
+
+var vm = new Vue({
+	el: '#app',
+	data (){
+		return{
+
+		}
+	},
+	components:{
+		App
+	},
+	template: '<App/>'
+})
+console.log(vm)
+</script>
+</body>
+</html>

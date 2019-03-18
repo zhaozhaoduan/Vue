@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="app">
+	<!-- <input type='text' v-model='msg' /> -->
+	<input type='text' v-bind:value='msg' v-on:input='changeVal' />
+	<h5>{{msg}}</h5>
+</div>
+
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+new Vue({
+	el: '#app',
+	data:{
+		msg: '大萌'
+	},
+	methods: {
+		changeVal(e){
+			this.msg = e.target.value
+		}
+	}
+})
+</script>
+</body>
+</html>

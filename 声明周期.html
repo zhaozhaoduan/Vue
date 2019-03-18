@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id='app'>
+		<App></App>
+	</div>
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+
+<script type="text/javascript">
+Vue.component('Test',{
+	data(){
+		return{
+			msg: 'hello world'
+		}
+	},
+	template: '<div>{{msg}}</div>',
+	beforeCreate: function(){
+		console.log(this.msg) //undefined
+	},
+	created: function(){
+		console.log(this.msg)
+		//作用：可以操作后端数据
+		//应用：发起ajax请求
+	},
+	beforeMount: function (){
+		//挂载数据到dom之前
+		console.log(document.getElementById('app'))
+	},
+	mounted: function (){
+		//挂载数据到dom之后调用，应用vue操作dom
+		console.log(document.getElementById('app'))
+	},
+	beforeUpdate: function(){
+		//更新dom前，可以获取原始的dom
+	},
+	updated: function (){
+		//更新dom后，可以获取到最新的dom
+	},
+	beforeDestory: function () {
+		console.log('销毁钱')
+	},
+	destoryed: function (){
+		// 清除定时器
+		console.log('销毁后')
+	},
+	activated: function (){
+		console.log('组件被激活了')
+	},
+	deactivated: function (){
+		console.log('组件被停用了')
+	}
+})
+
+// vue内置组件keep-alive能在组件的切换过程中将状态保留在内存中，防止重复渲染dom
+var App = {
+	data(){
+		return{
+		}
+	},
+	template: '<div class="app"><Test/></div>'
+}
+
+	var vm = new Vue({
+		el: '#app', //el是elementd的缩写
+		data () {
+			return{
+
+			}
+		},
+		components:{
+			App
+		}
+	})
+
+	//除了数据属性Vue实例还暴露了一些有用的实例属性和方法。他们都有前缀
+</script>
+</body>
+</html>

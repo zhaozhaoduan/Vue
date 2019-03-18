@@ -1,0 +1,40 @@
+<div id="app"></div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript">
+//局部过滤器、全局过滤器
+Vue.filter('Reverse', function(val,msa){
+	return msa + '' + val.split('').reverse().join('')
+})
+//局部组件使用：先声明，再挂载，最后使用
+var App = {
+	data(){
+		return{
+			price: 0,
+			msg: 'hello_filter'
+		}
+	},
+	template:"<div><input type='number' v-model='price' /> <h3>{{price | myCurrenty}}</h3><h4>{{msg| Reverse('hahaha')}}</h4></div>",
+	filters: {
+		myCurrenty: function(val){
+			return '$'+ val
+		}
+	}
+}
+
+var vm = new Vue({
+	el: '#app',
+	data (){
+		return{
+
+		}
+	},
+	components:{
+		App
+	},
+	template: '<App></App>'
+})
+console.log(vm)
+</script>
+</body>
+</html>

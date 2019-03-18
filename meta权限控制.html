@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="app">
+	<div class='app'>
+		<router-link to='/home'>首页</router-link>
+		<router-link to='/blog'>博客</router-link>
+		<router-link to='/home'>登录页面</router-link>
+		<a href='javascript:(0)'>退出也面</a>
+		<router-view></router-view>
+	</div>
+</div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript" src='./node_modules/vue-router/dist/vue-router.js'></script>
+<script type="text/javascript">
+	Vue.use(VueRouter)
+	var Home = {
+		template: "<div>我是首页</div>"
+	}
+	var Blog = {
+		template: "<div>我的博客</div>"
+	}
+	var Home = {
+		template: "<div>我是首页</div>"
+	}
+	var Login = {
+		data(){
+			return{
+				name: '',
+				password: ''
+			}
+		},
+		methods: {
+			loginHandler(){
+				//登录
+				localStorage.setItem('user',{name: this.name,pwd: this.password}
+					)
+				this.$router.push({path: '/blog'})
+			}
+		},
+		template: "<div><input v-model='name'/><input v-model='password'/><input type='button' value='登录' @click='loginHandler'/></div>"
+	}
+	// 引入vue-router模块 抛出两个全局的组件 router-link==>a to==>href router-view==>路由匹配组件的出口
+
+
+	var router = new VueRouter({
+		routes: [
+			{
+				path: '/',
+				redirect: Home 
+				//先声明再引用
+			},
+			{
+				path: '/home',
+				component: Home //先声明再引用
+			},
+			{
+				path: '/blog',
+				component: Blog,
+				//给未来的路由做权限控制
+				meta: {
+					auth: true,//值为true证明用户访问该组件的时候需要登录
+				}
+			},
+			{
+				path: '/login',
+				component: Login //先声明再引用
+			},
+		]
+	})
+
+	// 全局首位：任意路由切换时调用
+	router.beforeEach((to,from,next) =>{
+		console.log(to)
+		console.log(from)
+		if(to.meta.auth){
+			//用户点击博客连接 该用户需要登录
+			if(localStorage.getItem('user')){
+				//说明登录完成
+				next()
+			}else{
+				next({
+					path: '/login'
+				})
+			}
+
+		} else {
+			//如果为false，直接放行
+			next()
+		}
+		next()//必须调用next()方法，要不然页面就卡住了
+	})
+
+   new Vue({
+   	el: '#app',
+   	data(){
+   		return{
+
+   		}
+   	},
+   	router
+   })
+</script>
+</body>
+</html>

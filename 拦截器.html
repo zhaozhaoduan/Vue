@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="app">
+</div>
+
+<script type="text/javascript" src='./node_modules/vue/dist/vue.js'></script>
+<script type="text/javascript" src='./node_modules/axios/dist/axios.js'></script>
+
+
+
+<script type="text/javascript">
+var App = {
+	template: "<div><button @click='sendAjax'>发请求</button></div>",
+	methods: {
+		sendAjax (){
+			//添加拦截器,模拟类似cookie的机制，判断用户是否登陆
+			//请求拦截器
+			this.$axios.interceptors.request.use((config)=>{
+				console.log(config)
+				return config
+			}, function (err){
+				return Promise.reject(err)
+			})
+			//请求响应拦截器，获取到数据之前，应用取消loading加载动画
+			this.$axios.interceptors.response.use((response)=>{
+				console.log(response)
+			}, function (err){
+				return Promise.reject(err)
+			})
+
+			this.$axios.get('http://192.168.0.131:8888').then(res=>{
+				console.log(res)
+			}).catch(err=>{
+				console.log(err)
+			})
+
+		}
+	}
+}
+Vue.prototype.$axios = axios
+new Vue({
+	el: '#app',
+	template: '<App/>',
+	components: {
+		App
+	}
+})
+</script>
+</body>
+</html>
