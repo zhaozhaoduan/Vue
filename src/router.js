@@ -9,6 +9,26 @@ export default new Router({
       component: () => import( './components/Home')
     },
     {
+      path: '/test',
+      name: 'test',
+      component: () => import( './components/Test')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import( './components/Login')
+    },
+    {
+      path: '/register',
+      name: 'login',
+      component: () => import( './components/Login')
+    },
+    {
+      path: '/findpwd',
+      name: 'login',
+      component: () => import( './components/Login')
+    },
+    {
       path: '/cardPage',
       name: 'card',
       component: () => import( './components/Card')
